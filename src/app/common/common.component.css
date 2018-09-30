@@ -1,0 +1,13 @@
+.izquierda-paragraph{
+    border: 1px solid red;
+    height: 300px;
+}
+
+.derecha-paragraph{
+    border: 1px solid green;
+    height: 300px;
+}
+
+.espacio{
+    height: 50px;
+}
