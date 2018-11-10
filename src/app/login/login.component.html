@@ -1,34 +1,17 @@
-<div class="container ">
-  <div class="row justify-content-center align-items-center">
-    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-			<form [formGroup]="loginForm" (ngSubmit)="submit()" novalidate>
-				<div class="form-group">
-					<label class="center-block">Email:</label>
-					<input class="form-control" formControlName="email">
-					<div *ngIf="loginForm.get('email').errors" class="alert alert-danger col-xs-4 col-sm-4 col-md-4 col-lg-4 ">
-						<div *ngIf="loginForm.get('email').errors['required']">
-							Email requerido
-						</div>
-						<div *ngIf="loginForm.get('email').errors['email']">
-							Email incorrecto
-						</div>
-					</div>
-				</div>		
-				<div class="form-group">
-					<label class="center-block">Password:</label>	
-					<input type="password" class="form-control" formControlName="password">	
-					<div *ngIf="loginForm.get('password').errors" class="alert alert-danger col-xs-4 col-sm-4 col-md-4 col-lg-4">
-						<div *ngIf="loginForm.get('password').errors['required']">
-							Password requerido
-						</div>
-						<div *ngIf="loginForm.get('password').errors['minlength']">
-							Password inseguro
-						</div>
-					</div>
-				</div>		
-				<button type="submit" class="btn btn-primary btn-block" [disabled]="!loginForm.valid">Login</button>			
-				<button type="reset" class="btn btn-default btn-block">Reset</button>					
-			</form>          
-		</div>
+<div class="row">
+	<div class="col-md-6 offset-md-3">
+		<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+			<h4>Introduzca los siguientes datos:</h4>
+			<label>Correo Electrónico</label>
+			<input type="email" id="inputEmail" class="form-control" formControlName="email" required autofocus>
+			<label>Contraseña</label>
+			<input type="password" id="inputPassword" class="form-control" formControlName="password" required>
+			<hr>
+			<button type="submit" class="btn btn-primary btn-block" [disabled]="!loginForm.valid" *ngIf="!autenticando">Inicie sesión</button>
+			<button type="submit" class="btn btn-primary btn-block" *ngIf="autenticando">Autenticando Usuario</button>
+			<p class="alert alert-danger" *ngIf="mensaje">El usuario o Contraseña no es correcto</p>
+			<button type="reset" class="btn btn-default btn-block">Reset</button> 
+		  </form>
+		  
 	</div>
 </div>

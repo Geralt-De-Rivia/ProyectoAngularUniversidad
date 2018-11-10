@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {Title} from '@angular/platform-browser';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { AutenticacionService } from './../servicios/autenticacion.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -9,29 +10,50 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
+  autenticando = false;
   loginForm: FormGroup;
+  userdata: any;
+  mensaje = false;
 
-  constructor(
-    private fb: FormBuilder,
-    title: Title
-  ) {
-    title.setTitle('Login Triper');
-    this.buildForm();
-  }
+  constructor(private formBuilder: FormBuilder, private autService: AutenticacionService,
+    private router: Router, private activatedRouter: ActivatedRoute ) { }
 
-  buildForm() {
-    this.loginForm = this.fb.group({
-      email: ['', Validators.compose([Validators.required, Validators.email]) ],
-      password: ['', Validators.compose([Validators.required, Validators.minLength(6)]) ],
-    });
-  }
 
   ngOnInit() {
+    this.loginForm = this.formBuilder.group({
+      'email': ['', [
+        Validators.required, Validators.email
+      ]],
+      'password': ['', [
+        Validators.required, 
+        Validators.pattern('^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$'),
+        Validators.minLength(6)
+      ]]
+    });
+  }
+  
+  onSubmit() {
+    this.autenticando = true;
+    this.userdata = this.saveUserdata();
+    this.autService.inicioSesion(this.userdata);
+    setTimeout(() => {
+      if(this.isAuth() === false){
+        this.mensaje = true;
+        this.autenticando = false;
+      }
+
+    }, 2000)
+  } 
+
+  saveUserdata() {
+    const saveUserdata = {
+      email: this.loginForm.get('email').value,
+      password: this.loginForm.get('password').value,
+    };
+    return saveUserdata;
   }
 
-  submit() {
-    const email = this.loginForm.get('email').value;
-    const password = this.loginForm.get('password').value;
+  isAuth(){
+    return this.autService.isAuthenticated();
   }
-
 }
