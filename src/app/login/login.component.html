@@ -1,16 +1,18 @@
 <div class="row">
 	<div class="col-md-6 offset-md-3">
 		<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-			<h4>Introduzca los siguientes datos:</h4>
+			<h4>Introduzca datos de Inicio de sesion:</h4>
+			<br>
 			<label>Correo Electrónico</label>
 			<input type="email" id="inputEmail" class="form-control" formControlName="email" required autofocus>
 			<label>Contraseña</label>
 			<input type="password" id="inputPassword" class="form-control" formControlName="password" required>
-			<hr>
-			<button type="submit" class="btn btn-primary btn-block" [disabled]="!loginForm.valid" *ngIf="!autenticando">Inicie sesión</button>
-			<button type="submit" class="btn btn-primary btn-block" *ngIf="autenticando">Autenticando Usuario</button>
+			<br>
+			<button type="submit" class="btn btn-primary " [disabled]="!loginForm.valid" *ngIf="!autenticando">Inicie sesión</button>
+			<button type="submit" class="btn btn-primary" *ngIf="autenticando">Autenticando Usuario</button>
 			<p class="alert alert-danger" *ngIf="mensaje">El usuario o Contraseña no es correcto</p>
-			<button type="reset" class="btn btn-default btn-block">Reset</button> 
+			<br>
+			<p>Si no dispone de cuenta pulse <a routerLink="/registro"> AQUI</a></p>
 		  </form>
 		  
 	</div>

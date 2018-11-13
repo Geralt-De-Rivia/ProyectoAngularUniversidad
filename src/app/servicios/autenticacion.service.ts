@@ -19,7 +19,7 @@ export class AutenticacionService {
   inicioSesion (userdata) {
     firebase.auth().signInWithEmailAndPassword(userdata.email, userdata.password).then(response => {
       console.log(response);
-      this.router.navigate(['/home']); 
+      this.router.navigate(['/principal']); 
     })
     .catch( error => {
       console.log(error);

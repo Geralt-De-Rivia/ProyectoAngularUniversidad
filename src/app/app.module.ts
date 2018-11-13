@@ -16,18 +16,21 @@ import { HomeComponent } from './home/home.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import { GafasComponent } from './common/gafas/gafas.component';
 import { RelojesComponent } from './common/relojes/relojes.component';
-import { RopaComponent } from './common/ropa/ropa.component';
-import { OutFitComponent } from './common/out-fit/out-fit.component';
+import { BlogComponent } from './common/blog/blog.component';
+import { OutLetComponent } from './common/out-let/out-let.component';
+import { GuardService } from './servicios/guard.service';
+import { PrincipalComponent } from './principal/principal.component';
 
 const routes:Routes = [
   {path:'', component: HomeComponent},
   {path: 'home', component: HomeComponent},
   {path: 'login', component: LoginComponent},
+  {path: 'principal', component:PrincipalComponent, canActivate:[GuardService]},
   {path: 'registro', component:RegistroComponent},
-  {path: 'relojes', component:RelojesComponent},
-  {path: 'ropa', component:RopaComponent},
-  {path: 'out-fit', component:OutFitComponent},
-  {path: 'gafas', component:GafasComponent},
+  {path: 'relojes', component:RelojesComponent, canActivate:[GuardService]},
+  {path: 'blog', component:BlogComponent, canActivate:[GuardService]},
+  {path: 'out-let', component:OutLetComponent, canActivate:[GuardService]},
+  {path: 'gafas', component:GafasComponent, canActivate:[GuardService]},
 ]
 
 @NgModule({
@@ -40,8 +43,9 @@ const routes:Routes = [
     HomeComponent,
     GafasComponent,
     RelojesComponent,
-    RopaComponent,
-    OutFitComponent
+    BlogComponent,
+    OutLetComponent,
+    PrincipalComponent
   ],
   imports: [
     BrowserModule,
